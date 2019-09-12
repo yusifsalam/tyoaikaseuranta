@@ -1,16 +1,22 @@
-# Projektin työaikaseuranta
+# Projektin työaikaseuranta (Project hours follow-up tool)
 
-Tehtävänä on laatia järjestelmä, jolla voidaan seurata projektiin käytettyä työaikaa. Järjestelmää on tarkoitus käyttää ohjelmistotuotantoprojekteissa sekä harjoitustöissä. Projektipäällikkö tai ohjaaja saa järjestelmältä yhteenvetoja käytetystä työajasta viikottain, henkilöittäin ja tehtävälajeittain. Kukin projektiin osallistuva henkilö kirjaa järjestelmän tekemänsä työtunnit, työlajin ja mahdollisen selityksen. Projektin osallistuja saa nähtäväkseen tekemänsä kirjaukset. Hän saa esiin myös itseensä liittyvät yhteenvetoraportit. Projektipäällikkö saa halutessaan käyttöönsä myös tiedot kunkin työntekijään yksityiskohtaisista kirjauksista.
+The goal of this project is to create a Flask web application that allows for tracking of project hours and tasks. Users within the projects have different roles: project lead (or instructor) can see the summaries from all users within a project on weekly, user or task-related basis. Project users record their hours, what type of work was done (from predefined categories) and a short description of what was done. Project users can see their own hours and summaries, but not other users' hours or summaries. 
+The emphasis of this project is on the functionality of the database(s). 
 
-Toimintoja:
+Features to be implemented:
 
-* Kirjautuminen
-* Työaikakirjauksen teko
-* Projektin perustaminen
-* Henkilön liittäminen projektiin
-* Henkilön poistaminen projektista
-* Projektipäällikön raportit
-* Yksityiskohtainen työraportti
+* Logging in
+* Logging hours
+* Creating a new project
+* Adding a user to a project
+* Removing a user from a project
+* Summaries (reports)
 
-## Tietokantakaavio 
-![kaavio](https://yuml.me/0c8f60ee.png)
+
+## DB Diagram 
+![diagram](https://yuml.me/0c8f60ee.png)
+
+## Deployment
+The project is being continuosly deployed to Heroku via the Heroku GitHub integration. 
+
+Heroku [link](https://shrouded-hamlet-09298.herokuapp.com/). 
