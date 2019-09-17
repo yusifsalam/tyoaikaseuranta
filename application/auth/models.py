@@ -10,7 +10,7 @@ class User(db.Model):
                               onupdate=db.func.current_timestamp())
 
     name = db.Column(db.String(144), nullable=False)
-    username = db.Column(db.String(144), nullable=False)
+    username = db.Column(db.String(144), nullable=False, unique=True)
     password = db.Column(db.String(144), nullable=False)
 
     projects = db.relationship("Project", backref='account', lazy=True)
