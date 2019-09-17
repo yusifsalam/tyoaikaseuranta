@@ -28,3 +28,21 @@ def projects_create():
     db.session().add(new_project)
     db.session().commit()
     return redirect(url_for("projects_index"))
+
+
+@app.route('/projects/<project_id>/modify', methods=['POST'])
+@login_required
+def project_modify(project_id):
+    project = Project.query.get(project_id)
+    project.completed = True
+    db.session.commit()
+    return redirect(url_for('projects_index'))
+
+@app.route('/projects/<project_id>/remove', methods=['POST'])
+@login_required
+def projects_delete(project_id):
+    project = Project.query.get(project_id)
+    db.session.delete(project)
+    db.session.commit()
+    return redirect(url_for('projects_index'))
+

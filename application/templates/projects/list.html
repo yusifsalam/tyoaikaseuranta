@@ -1,14 +1,34 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <table>
-    <tr>
-      <th>Project</th>
-    </tr>
-    {% for project in projects %}
-    <tr>
-      <td>{{ project.name }}</td>
-    </tr>
-    {% endfor %}
-  </table>
+    <table>
+        <tr>
+            <th>Project</th>
+            <th>Status</th>
+        </tr>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.name }}</td>
+                {% if project.completed %}
+                    <td>Completed</td>
+                {% else %}
+                    <td>Not completed</td>
+                {% endif %}
+                <td>
+                    {% if current_user.is_authenticated %}
+                        <td>
+                            <form method="POST" action="{{ url_for('project_modify', project_id=project.id) }}">
+                                <input type="submit" value="Mark complete"/>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="POST" action="{{ url_for('projects_delete', project_id=project.id) }}">
+                                <input type="submit" value="Delete project"/>
+                            </form>
+                        </td>
+
+                    {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
 {% endblock %}
