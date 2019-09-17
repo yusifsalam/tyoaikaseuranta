@@ -125,3 +125,4 @@ dmypy.json
 
 .vscode
 .idea/
+application/*.db
