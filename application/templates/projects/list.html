@@ -1,34 +1,33 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <table>
-        <tr>
-            <th>Project</th>
-            <th>Status</th>
-        </tr>
-        {% for project in projects %}
-            <tr>
-                <td>{{ project.name }}</td>
-                {% if project.completed %}
-                    <td>Completed</td>
-                {% else %}
-                    <td>Not completed</td>
-                {% endif %}
-                <td>
-                    {% if current_user.is_authenticated %}
-                        <td>
-                            <form method="POST" action="{{ url_for('project_modify', project_id=project.id) }}">
-                                <input type="submit" value="Mark complete"/>
-                            </form>
-                        </td>
-                        <td>
-                            <form method="POST" action="{{ url_for('projects_delete', project_id=project.id) }}">
-                                <input type="submit" value="Delete project"/>
-                            </form>
-                        </td>
+    <div class="table-responsive">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-start align-items-center">
+                <b class="col-2">Project name</b>
+                <b class="col-2">Status</b>
+            </li>
+            {% for project in projects %}
+                <li class="list-group-item d-flex justify-content-start align-items-center">
+                    <p class="col-2">{{ project.name }}</p>
+                    <p class="col-2">
+                        {% if project.completed %}
+                            Completed
+                        {% else %}
+                            Not completed
+                        {% endif %}
+                    </p>
+                    <button class="btn btn-primary col-2 ml-1">View</button>
+                    <form class="col-2" method="POST" action="{{ url_for('project_modify', project_id=project.id) }}">
+                        <input class="btn btn-success ml-1" type="submit" value="Mark complete"/>
+                    </form>
+                    <form class="col-2" method="POST" action="{{ url_for('projects_delete', project_id=project.id) }}">
+                        <input class="btn btn-danger ml-1" type="submit" value="Delete project"/>
+                    </form>
+                </li>
+            {% endfor %}
 
-                    {% endif %}
-            </tr>
-        {% endfor %}
-    </table>
+        </ul>
+
+    </div>
 {% endblock %}

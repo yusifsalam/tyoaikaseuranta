@@ -1,29 +1,10 @@
 {% extends "layout.html" %}
-
+{% from "_projecthelpers.html" import render_field %}
 {% block body %}
     <form method="POST" action="{{ url_for('projects_create') }}">
-        <table>
-            <tr>
-                <td>
-                    {{ form.name.label }}
-                </td>
-                <td>
-                    {{ form.name }}
-                </td>
-                <td>
-                    <ul>
-                        {% for error in form.name.errors %}
-                            <li>{{ error }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <input type="submit" value="Add a new project"/>
-                </td>
-            </tr>
-        </table>
-
+        {{ render_field(form.name, placeholder=form.name.label.text) }}
+        <button type="submit" class="btn btn-primary">Add project</button>
     </form>
+
+
 {% endblock %}
