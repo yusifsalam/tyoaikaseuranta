@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Projektin työaikaseuranta</title>
-  </head>
+</head>
 
-  <body>
-    <ul>
-      <li><a href="{{ url_for('projects_index') }}">List projects</a></li>
-      <li><a href="{{ url_for('projects_form') }}">Add new project</a></li>
-    </ul>
-    {% block body %}
-      <p>
+<body>
+{% if current_user.is_authenticated %}
+    <p>
+        Logged in as {{ current_user.name }} <a href="{{ url_for('auth_logout') }}">Logout</a>
+    </p>
+{% else %}
+    <a href="{{ url_for('auth_login') }}">Login</a>
+{% endif %}
+
+<ul>
+    <li><a href="{{ url_for('projects_index') }}">List projects</a></li>
+    <li><a href="{{ url_for('projects_form') }}">Add new project</a></li>
+</ul>
+{% block body %}
+    <p>
         Content.
-      </p>
-    {% endblock %}
-  </body>
+    </p>
+{% endblock %}
+</body>
 </html>
