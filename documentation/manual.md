@@ -1,4 +1,4 @@
-# Manual
+# User Manual
 This manual describes the most common use cases for the application.
 ## Registration
 In order to use all the features of the application, registration is required.
@@ -10,7 +10,8 @@ To login, navigate to the application and click the *Login* button from the top 
 Fill in your username and password and click login.
 
 ## Projects
-Users can view and create projects, as well as add tasks to the projects they are involved in.
+Users can view and create projects, as well as add tasks to the projects they are involved in. 
+Project list can be viewed without logging in, while all other project-related actions require authentication.
 
 ### Creating a new project
 Login to the application first. Click the *Add new project* button from the top menu, you will be taken to the new project form.
