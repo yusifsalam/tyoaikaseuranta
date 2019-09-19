@@ -12,11 +12,38 @@ Features to be implemented:
 * Removing a user from a project
 * Summaries (reports)
 
+## Instructions for users
+You can read the user manual [here](https://github.com/yusifsalam/tyoaikaseuranta/blob/master/documentation/manual.md).
 
-## DB Diagram 
-![diagram](https://yuml.me/0c8f60ee.png)
 
 ## Deployment
 The project is being continuosly deployed to Heroku via the Heroku GitHub integration. 
 
 Heroku [link](https://shrouded-hamlet-09298.herokuapp.com/). 
+
+You need to register to use the application! Alternatively, you can build your own instance from source. 
+
+## Hosting your own app
+You will need to have these on your system:
+* Python 3
+* PostgreSQL
+
+Follow these steps:
+1. Clone the repo
+2. cd into the cloned repository directory
+3. create a new python virtual environment 
+```python
+python3 -m venv venv
+```
+4. activate the newly created virtual environment `source venv/bin/activate` (use an appropriate command if you're using ZSH or Fish shell)
+5. install the requirements
+```python
+pip install -r requirements.txt
+```
+6. start the application, it will run on port 5000
+```python
+python run.py
+```
+
+## DB Diagram 
+![diagram](https://yuml.me/0c8f60ee.png)
