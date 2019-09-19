@@ -46,4 +46,4 @@ python run.py
 ```
 
 ## DB Diagram 
-![diagram](https://yuml.me/0c8f60ee.png)
+![diagram](https://raw.githubusercontent.com/yusifsalam/tyoaikaseuranta/master/documentation/db_diagram.png)
