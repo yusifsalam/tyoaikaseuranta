@@ -15,6 +15,8 @@ Features to be implemented:
 ## Instructions for users
 You can read the user manual [here](https://github.com/yusifsalam/tyoaikaseuranta/blob/master/documentation/manual.md).
 
+Information about different user classes is [here](https://github.com/yusifsalam/tyoaikaseuranta/blob/master/documentation/user_descriptions.md).
+
 
 ## Deployment
 The project is being continuosly deployed to Heroku via the Heroku GitHub integration. 
