@@ -17,12 +17,14 @@
                             Not completed
                         {% endif %}
                     </p>
-                    <button class="btn btn-primary col-2 ml-1">View</button>
+                    {%  if current_user.is_authenticated %}
+                    <a href="projects/{{ project.id }}" class="btn btn-primary col-2 ml-1">View</a>
                     <form class="col-2" method="POST" action="{{ url_for('project_modify', project_id=project.id) }}">
                         <input class="btn btn-success ml-1" type="submit" value="Mark complete"/>
                     </form>
                     <form class="col-2" method="POST" action="{{ url_for('projects_delete', project_id=project.id) }}">
                         <input class="btn btn-danger ml-1" type="submit" value="Delete project"/>
+                    {% endif %}
                     </form>
                 </li>
             {% endfor %}
