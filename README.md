@@ -23,7 +23,10 @@ The project is being continuosly deployed to Heroku via the Heroku GitHub integr
 
 Heroku [link](https://shrouded-hamlet-09298.herokuapp.com/). 
 
-You need to register to use the application! Alternatively, you can build your own instance from source. 
+You need to register to use the application! Alternatively, you can build your own instance from source. If neither option is lucrative enough, you can use the test account:
+> username: test
+
+> password: enkerro:DD
 
 ## Hosting your own app
 You will need to have these on your system:
