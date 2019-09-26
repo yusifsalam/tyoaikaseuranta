@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, validators
+from wtforms import StringField, validators, SelectField
 
 
 class ProjectForm(FlaskForm):
@@ -8,3 +8,9 @@ class ProjectForm(FlaskForm):
     class Meta:
         csrf = False
 
+
+class AddUser(FlaskForm):
+    name = SelectField("User's name", coerce=int, validators=[validators.InputRequired()])
+
+    class Meta:
+        csrf = False

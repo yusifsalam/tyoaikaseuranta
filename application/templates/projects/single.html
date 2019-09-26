@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Project {{ project.name }}
+        {% if project.completed %}
+            <span class="badge badge-success">Completed</span>
+        {% else %}
+            <span class="badge badge-primary">Ongoing</span>
+        {% endif %}
+    </h1>
+    <h3>Owner: {{ project.get_owner(project) }}</h3>
+    <h3>User count: {{ project.accounts|length }}</h3>
+    <h3>Tasks: {{ project.tasks|length }}</h3>
+    {% if not project.completed %}
+    <button class="btn btn-primary">Add users</button>
+    <button class="btn btn-primary">Add tasks</button>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Name: {{ project.name }}</h1>
+    <ul>
+    {% for user in users %}
+        <li>{{ user.name }}</li>
+    {% endfor %}
+    </ul>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            Add users
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">User 1</a>
+            <a class="dropdown-item" href="#">User 2</a>
+            <a class="dropdown-item" href="#">user 3</a>
+        </div>
+    </div>
+{% endblock %}

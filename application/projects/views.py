@@ -10,6 +10,22 @@ def projects_index():
     return render_template("projects/list.html", projects=Project.query.all())
 
 
+@app.route("/projects/<int:project_id>", methods=['GET'])
+@login_required
+def project_view_one(project_id):
+    project = Project.query.get(project_id)
+    return render_template("projects/single.html", project=project)
+
+
+@app.route("/projects/<int:project_id>/users", methods=['GET', 'POST'])
+@login_required
+def project_user_list(project_id):
+    project = Project.query.get(project_id)
+    users = project.accounts
+    print(users)
+    return render_template("projects/user_list.html", project=project, users=users)
+
+
 @app.route("/projects/new")
 @login_required
 def projects_form():
@@ -24,8 +40,9 @@ def projects_create():
         return render_template("projects/new.html", form=form)
     new_project = Project(form.name.data)
     new_project.account_id = current_user.id
-
+    current_user.projects.append(new_project)
     db.session().add(new_project)
+    db.session().add(current_user)
     db.session().commit()
     return redirect(url_for("projects_index"))
 
@@ -37,6 +54,7 @@ def project_modify(project_id):
     project.completed = True
     db.session.commit()
     return redirect(url_for('projects_index'))
+
 
 @app.route('/projects/<project_id>/remove', methods=['POST'])
 @login_required

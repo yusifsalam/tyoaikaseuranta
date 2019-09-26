@@ -1,7 +1,20 @@
 {% extends "layout.html" %}
 
 {% block body %}
-  <p>
-    Hello world!
-  </p>
+    {% if not current_user.is_authenticated %}
+        <p>Hello, Stranger!</p>
+        <p> Please <a href="auth/login">log in </a>to use the app.</p>
+    {% else %}
+        <p>Hello, {{ current_user.name }}!</p>
+        <p>You've logged {{ current_user.count_tasks(current_user) }} tasks in {{ current_user.projects|length }}
+            projects.</p>
+        {% if current_user.projects|length > 0 %}
+        <p>Here's a list of your current projects:</p>
+        <ul>
+            {% for project in current_user.projects %}
+                <li><a href="projects/{{ project.id }}">{{ project.name }}</a></li>
+            {% endfor %}
+        </ul>
+            {% endif %}
+    {% endif %}
 {% endblock %}
