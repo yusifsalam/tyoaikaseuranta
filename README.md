@@ -15,13 +15,18 @@ Features to be implemented:
 ## Instructions for users
 You can read the user manual [here](https://github.com/yusifsalam/tyoaikaseuranta/blob/master/documentation/manual.md).
 
+Information about different user classes is [here](https://github.com/yusifsalam/tyoaikaseuranta/blob/master/documentation/user_descriptions.md).
+
 
 ## Deployment
 The project is being continuosly deployed to Heroku via the Heroku GitHub integration. 
 
 Heroku [link](https://shrouded-hamlet-09298.herokuapp.com/). 
 
-You need to register to use the application! Alternatively, you can build your own instance from source. 
+You need to register to use the application! Alternatively, you can build your own instance from source. If neither option is lucrative enough, you can use the test account:
+> username: test
+
+> password: enkerro:DD
 
 ## Hosting your own app
 You will need to have these on your system:
@@ -46,4 +51,4 @@ python run.py
 ```
 
 ## DB Diagram 
-![diagram](https://yuml.me/0c8f60ee.png)
+![diagram](https://raw.githubusercontent.com/yusifsalam/tyoaikaseuranta/master/documentation/db_diagram.png)
