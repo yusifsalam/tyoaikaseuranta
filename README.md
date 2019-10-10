@@ -51,4 +51,4 @@ python run.py
 ```
 
 ## DB Diagram 
-![diagram](https://raw.githubusercontent.com/yusifsalam/tyoaikaseuranta/master/documentation/db_diagram.png)
+![diagram](https://raw.githubusercontent.com/yusifsalam/tyoaikaseuranta/master/documentation/class_diagram.png)
