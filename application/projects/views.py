@@ -11,10 +11,7 @@ def projects_index():
         value = request.form.getlist('ownCheckbox')
         if value:
             return render_template("projects/list.html", projects=current_user.projects)
-        else:
-            return render_template("projects/list.html", projects=Project.query.all())
-    else:
-        return render_template("projects/list.html", projects=Project.query.all())
+    return render_template("projects/list.html", projects=Project.query.all())
 
 
 @app.route("/projects/<int:project_id>", methods=['GET'])
@@ -58,7 +55,7 @@ def projects_create():
 @login_required
 def project_modify(project_id):
     project = Project.query.get(project_id)
-    project.completed = True
+    project.completed = not project.completed
     db.session.commit()
     return redirect(url_for('projects_index'))
 

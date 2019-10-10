@@ -37,7 +37,11 @@
                         {% if project.get_owner(project) == current_user.name %}
                             <form class="col-2" method="POST"
                                   action="{{ url_for('project_modify', project_id=project.id) }}">
-                                <input class="btn btn-success ml-1" type="submit" value="Mark complete"/>
+                                {% if project.completed %}
+                                    <input class="btn btn-success ml-1" type="submit" value="Mark complete"/>
+                                {% else %}
+                                    <input class="btn btn-success ml-1" type="submit" value="Mark active"/>
+                                {% endif %}
                             </form>
                             <form class="col-2" method="POST"
                                   action="{{ url_for('projects_delete', project_id=project.id) }}">
