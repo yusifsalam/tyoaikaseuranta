@@ -27,7 +27,7 @@
 
         <form class='mb-3' method="POST"
               action="{{ url_for('project_modify', project_id=project.id) }}">
-            {% if project.completed %}
+            {% if not project.completed %}
                 <input class="btn btn-success ml-1" type="submit" value="Mark complete"/>
             {% else %}
                 <input class="btn btn-success ml-1" type="submit" value="Mark active"/>
