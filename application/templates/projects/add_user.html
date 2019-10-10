@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    <h1>Project: {{ project.name }}</h1>
+    {% if current_user.id in leads %}
+    <ul class="list-group">
+    {% if users|length == 0 %}
+        <h4>There are currently no free users!</h4>
+        {% endif %}
+    {% for user in users %}
+        <li class="list-group-item d-flex justify-content-start align-items-center">
+            <b class="col-2">{{ user.name }}</b>
+            <form method="POST" class="col-2" action="{{ url_for('project_add_user_by_id',project_id=project.id, user_id=user.id) }}">
+                <button class="btn btn-primary btn-sm">Add user</button>
+            </form>
+        </li>
+
+    {% endfor %}
+    </ul>
+    {% else %}
+    <h3> You are not authorized to add new users to this project</h3>
+    {% endif %}
+
+{% endblock %}

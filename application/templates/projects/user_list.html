@@ -1,21 +1,39 @@
 {% extends "layout.html" %}
 
 {% block body %}
-    <h1>Name: {{ project.name }}</h1>
-    <ul>
-    {% for user in users %}
-        <li>{{ user.name }}</li>
-    {% endfor %}
+    <h1>Project: {{ project.name }}</h1>
+    <h3>User list</h3>
+    <ul class="list-group">
+        {% if current_user.id in leads %}
+            {% for user in users %}
+
+                {% if user.id not in leads %}
+                    <form method="POST"
+                          action="{{ url_for('project_make_lead', project_id=project.id, user_id=user.id) }}">
+                        <li class="list-group-item d-flex justify-content-start align-items-center">
+                            {{ user.name }}
+                            <input class="btn btn-success ml-1" type="submit" value="assign as lead">
+                    </form>
+                    </li>
+
+                {% elif user.name != project.get_owner(project) %}
+                    <form method="POST"
+                          action="{{ url_for('project_remove_lead', project_id=project.id, user_id=user.id) }}">
+                        <li class="list-group-item d-flex justify-content-start align-items-center">{{ user.name }} (lead)
+                            <input class="btn btn-danger ml-1" type="submit" value="unassign as project lead">
+                    </form>
+                    </li>
+                    {% else %}
+                    <li class="list-group-item d-flex justify-content-start align-items-center">{{ user.name }} (owner)</li>
+                {% endif %}
+
+            {% endfor %}
+        {% else %}
+            <h4>Only project leaders can see user lists! </h4>
+        {% endif %}
+
+
     </ul>
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-            Add users
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="#">User 1</a>
-            <a class="dropdown-item" href="#">User 2</a>
-            <a class="dropdown-item" href="#">user 3</a>
-        </div>
-    </div>
+
+
 {% endblock %}

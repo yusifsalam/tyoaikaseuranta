@@ -11,9 +11,32 @@
     <h3>Owner: {{ project.get_owner(project) }}</h3>
     <h3>User count: {{ project.accounts|length }}</h3>
     <h3>Tasks: {{ project.tasks|length }}</h3>
-    {% if not project.completed %}
-    <button class="btn btn-primary">Add users</button>
-    <button class="btn btn-primary">Add tasks</button>
+    <div class="mb-3">
+        <a class="btn btn-primary" href="/projects/{{ project.id }}/users">View users</a>
+        <a class="btn btn-primary" href="/projects/{{ project.id }}/tasks">View tasks</a>
+    </div>
+    {% if current_user.id in leads %}
+        {% if not project.completed %}
+            <div class="mb-3">
+                <a class="btn btn-primary" href="/projects/{{ project.id }}/add_user">Add users</a>
+                <button class="btn btn-primary">Add tasks</button>
+            </div>
+
+        {% endif %}
+        <div>
+
+        <form class='mb-3' method="POST"
+              action="{{ url_for('project_modify', project_id=project.id) }}">
+            {% if project.completed %}
+                <input class="btn btn-success ml-1" type="submit" value="Mark complete"/>
+            {% else %}
+                <input class="btn btn-success ml-1" type="submit" value="Mark active"/>
+            {% endif %}
+        </form>
+        <form method="POST"
+              action="{{ url_for('projects_delete', project_id=project.id) }}">
+        <input class="btn btn-danger ml-1" type="submit" value="Delete project"/>
     {% endif %}
+</div>
 
 {% endblock %}

@@ -2,6 +2,8 @@ from application import app, db
 from flask import render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from application.projects.models import Project
+from application.leads.models import Lead
+from application.auth.models import User
 from application.projects.forms import ProjectForm
 
 
@@ -18,16 +20,63 @@ def projects_index():
 @login_required
 def project_view_one(project_id):
     project = Project.query.get(project_id)
-    return render_template("projects/single.html", project=project)
+    leads = [lead.user_id for lead in project.leads]
+    print(leads)
+    return render_template("projects/single.html", project=project, leads=leads)
 
 
-@app.route("/projects/<int:project_id>/users", methods=['GET', 'POST'])
+@app.route("/projects/<int:project_id>/users", methods=['GET'])
 @login_required
 def project_user_list(project_id):
     project = Project.query.get(project_id)
     users = project.accounts
-    print(users)
-    return render_template("projects/user_list.html", project=project, users=users)
+    leads = [lead.user_id for lead in project.leads]
+    return render_template("projects/user_list.html", project=project, users=users, leads=leads)
+
+
+@app.route("/projects/<int:project_id>/add_user", methods=['GET'])
+@login_required
+def project_add_user(project_id):
+    project = Project.query.get(project_id)
+    project_users = project.accounts
+    project_user_ids = [user.id for user in project_users]
+    users = User.query.filter(User.id.notin_(project_user_ids)).all()
+    leads = [lead.user_id for lead in project.leads]
+    return render_template('/projects/add_user.html'.format(project_id), project=project, users=users, leads=leads)
+
+
+@app.route("/projects/<int:project_id>/add_user/<int:user_id>", methods=['POST'])
+@login_required
+def project_add_user_by_id(project_id, user_id):
+    project = Project.query.get(project_id)
+    user = User.query.get(user_id)
+    project.accounts.append(user)
+    db.session().commit()
+    return redirect(url_for('project_add_user', project_id=project_id))
+
+
+@app.route("/projects/<int:project_id>/make_lead/<int:user_id>", methods=['POST'])
+@login_required
+def project_make_lead(project_id, user_id):
+    project = Project.query.get(project_id)
+    user = User.query.get(user_id)
+    leads = [lead.user_id for lead in project.leads]
+    if user.id not in leads:
+        lead = Lead(project.id, user.id)
+        db.session().add(lead)
+        db.session().commit()
+    return redirect(url_for('project_user_list', project_id=project_id))
+
+
+@app.route("/projects/<int:project_id>/remove_lead/<int:user_id>", methods=['POST'])
+@login_required
+def project_remove_lead(project_id, user_id):
+    project = Project.query.get(project_id)
+    user = User.query.get(user_id)
+    lead = Lead(project.id, user.id)
+    db.session().add(lead)
+    db.session().commit()
+    return redirect(url_for('project_user_list', project_id=project_id))
 
 
 @app.route("/projects/new")
@@ -43,10 +92,13 @@ def projects_create():
     if not form.validate():
         return render_template("projects/new.html", form=form)
     new_project = Project(form.name.data)
+    new_lead = Lead(new_project.id, current_user.id)
+    new_project.leads.append(new_lead)
     new_project.account_id = current_user.id
     current_user.projects.append(new_project)
     db.session().add(new_project)
     db.session().add(current_user)
+    db.session().add(new_lead)
     db.session().commit()
     return redirect(url_for("projects_index"))
 
@@ -57,13 +109,15 @@ def project_modify(project_id):
     project = Project.query.get(project_id)
     project.completed = not project.completed
     db.session.commit()
-    return redirect(url_for('projects_index'))
+    return redirect(url_for('project_view_one', project_id=project_id))
 
 
 @app.route('/projects/<project_id>/remove', methods=['POST'])
 @login_required
 def projects_delete(project_id):
     project = Project.query.get(project_id)
+    for lead in project.leads:
+        db.session.delete(lead)
     db.session.delete(project)
     db.session.commit()
     return redirect(url_for('projects_index'))
