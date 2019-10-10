@@ -1,6 +1,19 @@
 {% extends "layout.html" %}
 
 {% block body %}
+    {% if current_user.is_authenticated %}
+        <div class="mb-5">
+            <form method="POST" action="{{ url_for('projects_index') }}">
+                <label>
+                    <input class="form-check-input" type="checkbox" value="ownProjects" name="ownCheckbox">
+                    Only show my own projects
+                </label>
+                <button class="btn btn-primary" type="submit">Apply filter</button>
+
+            </form>
+        </div>
+
+    {% endif %}
     <div class="table-responsive">
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-start align-items-center">

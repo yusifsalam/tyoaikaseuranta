@@ -5,9 +5,16 @@ from application.projects.models import Project
 from application.projects.forms import ProjectForm
 
 
-@app.route("/projects", methods=["GET"])
+@app.route("/projects", methods=['GET', 'POST'])
 def projects_index():
-    return render_template("projects/list.html", projects=Project.query.all())
+    if request.method == 'POST':
+        value = request.form.getlist('ownCheckbox')
+        if value:
+            return render_template("projects/list.html", projects=current_user.projects)
+        else:
+            return render_template("projects/list.html", projects=Project.query.all())
+    else:
+        return render_template("projects/list.html", projects=Project.query.all())
 
 
 @app.route("/projects/<int:project_id>", methods=['GET'])
