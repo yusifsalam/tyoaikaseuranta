@@ -7,6 +7,8 @@ class Task(Base):
     hours = db.Column(db.Float, nullable=False)
     description = db.Column(db.String(144), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('project.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
+    user = db.relationship('Account', backref=db.backref('tasks', lazy=True))
 
     def __init__(self, category, hours, description):
         self.category = category
