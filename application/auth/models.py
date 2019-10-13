@@ -1,5 +1,6 @@
 from application import db
 from application.models import Base
+from flask_login import current_user
 from sqlalchemy.sql import text
 
 userProject = db.Table('userProject',
@@ -39,8 +40,6 @@ class User(Base):
     @staticmethod
     def count_tasks(self):
         stmt = text("SELECT COUNT(Task.id) FROM Task "
-                    "LEFT JOIN Project ON Task.project_id = Project.id "
-                    "LEFT JOIN Account on Project.account_id = Account.id "
-                    "WHERE Account.id = :account_id").params(account_id=self.id)
+                    "WHERE Task.account_id = :account_id").params(account_id=current_user.id)
         res = db.engine.execute(stmt)
         return res.first()[0]
