@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block body %}
+    {% if current_user.is_authenticated %}
+        <div class="table-responsive">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-start align-items-center">
+                    <b class="col-2">Task</b>
+                    <b class="col-2">Category</b>
+                    <b class="col-2">Hours</b>
+                    <b class="col-2">Description</b>
+                </li>
+                {% for task in tasks %}
+                    <li class="list-group-item d-flex justify-content-start align-items-center">
+                        <p class="col-2">{{ task.id }}</p>
+                        <p class="col-2">{{ task.category }}</p>
+                        <p class="col-2">{{ task.hours }}</p>
+                        <p class="col-2">{{ task.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -17,6 +17,7 @@ class User(Base):
 
     projects = db.relationship("Project", secondary=userProject, lazy='subquery',
                                backref=db.backref('accounts', lazy=True))
+    tasks = db.relationship('Task', backref='account', lazy=True)
 
     def __init__(self, name, username, password):
         self.name = name

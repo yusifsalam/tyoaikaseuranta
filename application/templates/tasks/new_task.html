@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% from "_projecthelpers.html" import render_field %}
+{% block body %}
+    <form method="POST" action="{{ url_for('task_create') }}">
+        {{ render_field(form.name, placeholder=form.name.label.text) }}
+        <button type="submit" class="btn btn-primary">Add task</button>
+    </form>
+
+
+{% endblock %}
