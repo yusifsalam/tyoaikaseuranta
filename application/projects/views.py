@@ -71,11 +71,12 @@ def project_make_lead(project_id, user_id):
 @app.route("/projects/<int:project_id>/remove_lead/<int:user_id>", methods=['POST'])
 @login_required
 def project_remove_lead(project_id, user_id):
-    project = Project.query.get(project_id)
-    user = User.query.get(user_id)
-    lead = Lead(project.id, user.id)
-    db.session().add(lead)
-    db.session().commit()
+    lead_id = Lead.findByProjectAndUser(project_id, user_id)
+    if lead_id:
+        lead = Lead.query.get(lead_id)
+        db.session().delete(lead)
+        db.session().commit()
+
     return redirect(url_for('project_user_list', project_id=project_id))
 
 
